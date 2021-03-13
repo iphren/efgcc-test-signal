@@ -1,0 +1,17 @@
+{
+  "name": "web-stream",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "iphren",
+  "license": "ISC",
+  "dependencies": {
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
+    "nzh": "^1.0.4",
+    "svg2img": "^0.9.1"
+  }
+}
