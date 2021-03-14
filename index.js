@@ -22,7 +22,7 @@ function init() {
     "-an", "-f", "hls",
     "-vcodec", "libx264",
     "-g", "2", "-keyint_min", "2",
-    "-vf", "fps=1,format=yuv420p",
+    "-vf", "fps=5,format=yuv420p",
     //"-start_number", "1", "-hls_time", "2", "-hls_list_size", "30",
     //"-hls_flags", "delete_segments",
     //"videos/waiting.m3u8"
@@ -33,6 +33,9 @@ function init() {
 	});
 	ffmpeg.stderr.on('data', data => {
   	console.log(`ffmpeg stderr: ${data}`);
+    ffmpeg.kill();
+    console.log(moment().toISOString(), 'restarting...');
+    init();
 	});
   makeSundaySvg().then(buf => ffmpeg.stdin.write(buf));
 	setInterval(() => {
@@ -89,5 +92,3 @@ function countdown(a, b) {
   }
   return `${text} // ${en}`;
 }
-
-
