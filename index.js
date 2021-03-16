@@ -7,25 +7,39 @@ moment.locale('zh-CN');
 moment.tz.setDefault('Europe/London');
 
 const svgString = fs.readFileSync('efgcc-signal-static.svg', {encoding: 'utf8'});
+const killOn = 'error';
+const logLevel = 0 ? 'verbose' : killOn;
 
 init();
 
 function init() {
   let ffmpeg = spawn('ffmpeg', [
-    "-y",
-    "-loglevel", "warning",
+    "-loglevel", logLevel,
+    "-re",
     "-f", "image2pipe",
     "-c:v", "png",
-    "-loop", "0",
-    "-framerate", "0.1",
+    "-framerate", "1",
     "-i", "-",
-    "-an", "-f", "hls",
-    "-vcodec", "libx264",
-    "-g", "2", "-keyint_min", "2",
+
+    //"-re",
+    //"-stream_loop", "-1",
+    //"-i", "waiting.mp3",
+
+    "-filter_complex", "amovie=waiting.mp3:loop=0,asetpts=N/SR/TB",
+    "-map", "0:v",
+
+    "-c:a", "aac",
+    "-b:a", "128k",
+    //"-map", "1:a:0",
+
+    "-c:v", "libx264",
+    //"-map", "0:v:0",
+    "-preset", "ultrafast",
+    "-tune", "stillimage",
     "-vf", "fps=5,format=yuv420p",
-    //"-start_number", "1", "-hls_time", "2", "-hls_list_size", "30",
-    //"-hls_flags", "delete_segments",
-    //"videos/waiting.m3u8"
+    "-r", "5",
+    "-g", "10",
+
     "-f", "flv", "rtmp://localhost:1935/local/waiting"
   ]);
 	ffmpeg.stdout.on('data', data => {
@@ -33,14 +47,24 @@ function init() {
 	});
 	ffmpeg.stderr.on('data', data => {
   	console.log(`ffmpeg stderr: ${data}`);
-    ffmpeg.kill();
-    console.log(moment().toISOString(), 'restarting...');
-    init();
+    if (logLevel === killOn) {
+      ffmpeg.kill();
+      console.log(moment().toISOString(), 'restarting...');
+      init();
+    }
 	});
-  makeSundaySvg().then(buf => ffmpeg.stdin.write(buf));
+  makeSundaySvg().then(buf => {
+    for (let i = 0; i < 30; i++)
+      ffmpeg.stdin.write(buf);
+    return;
+  });
 	setInterval(() => {
-    makeSundaySvg().then(buf => ffmpeg.stdin.write(buf));
-	}, 10000);
+    makeSundaySvg().then(buf => {
+      for (let i = 0; i < 30; i++)
+        ffmpeg.stdin.write(buf)
+      return;
+    });
+	}, 30000);
 }
 
 function makeSundaySvg() {
