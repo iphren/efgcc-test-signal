@@ -8,7 +8,7 @@ moment.tz.setDefault('Europe/London');
 
 const svgString = fs.readFileSync('efgcc-signal-static.svg', {encoding: 'utf8'});
 const killOn = 'error';
-const logLevel = 0 ? 'verbose' : killOn;
+const logLevel = process.env.NODE_ENV === "production" ? killOn : 'verbose';
 
 init();
 
@@ -28,9 +28,9 @@ function init() {
 
     "-c:v", "libx264",
     "-preset", "ultrafast",
-    "-tune", "stillimage",
+    "-tune", "zerolatency",
     "-vf", "fps=5,format=yuv420p",
-    "-g", "10",
+    "-g", "5",
 
     "-f", "flv", "rtmp://localhost:1935/local/waiting"
   ]);
