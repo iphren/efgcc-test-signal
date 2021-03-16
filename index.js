@@ -21,23 +21,15 @@ function init() {
     "-framerate", "1",
     "-i", "-",
 
-    //"-re",
-    //"-stream_loop", "-1",
-    //"-i", "waiting.mp3",
-
     "-filter_complex", "amovie=waiting.mp3:loop=0,asetpts=N/SR/TB",
-    "-map", "0:v",
 
     "-c:a", "aac",
     "-b:a", "128k",
-    //"-map", "1:a:0",
 
     "-c:v", "libx264",
-    //"-map", "0:v:0",
     "-preset", "ultrafast",
     "-tune", "stillimage",
     "-vf", "fps=5,format=yuv420p",
-    "-r", "5",
     "-g", "10",
 
     "-f", "flv", "rtmp://localhost:1935/local/waiting"
