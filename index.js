@@ -7,7 +7,7 @@ moment.locale('zh-CN');
 moment.tz.setDefault('Europe/London');
 
 const svgString = fs.readFileSync('efgcc-signal-static.svg', {encoding: 'utf8'});
-const killOn = 'error';
+const killOn = 'warning';
 const logLevel = process.env.NODE_ENV === "production" ? killOn : 'verbose';
 
 init();
@@ -41,8 +41,10 @@ function init() {
   	console.log(`ffmpeg stderr: ${data}`);
     if (logLevel === killOn) {
       ffmpeg.kill();
-      console.log(moment().toISOString(), 'restarting...');
-      init();
+      setTimeout(function() {
+        console.log(moment().toISOString(), 'restarting...');
+        init();
+      }, 1000);
     }
 	});
   makeSundaySvg().then(buf => {
