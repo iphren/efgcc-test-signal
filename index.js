@@ -1,3 +1,5 @@
+console.error(`[${new Date().toISOString()}] no error`);
+
 const fs = require('fs');
 const nzhcn = require("nzh/cn");
 const moment = require('moment-timezone');
@@ -8,12 +10,17 @@ moment.tz.setDefault('Europe/London');
 
 const svgString = fs.readFileSync('efgcc-signal-static.svg', {encoding: 'utf8'});
 const killOn = 'warning';
-const logLevel = process.env.NODE_ENV === "production" ? killOn : 'verbose';
+const debug = 'verbose';
+const logLevel = process.env.NODE_ENV === "production" ? killOn : debug;
+
+const skipOn = /Estimating duration from bitrate, this may be inaccurate/;
+
+var instance;
 
 init();
 
 function init() {
-  let ffmpeg = spawn('ffmpeg', [
+  instance = spawn('ffmpeg', [
     "-loglevel", logLevel,
     "-re",
     "-f", "image2pipe",
@@ -21,10 +28,10 @@ function init() {
     "-framerate", "1",
     "-i", "-",
 
-    "-filter_complex", "amovie=waiting.mp3:loop=0,asetpts=N/SR/TB",
+//    "-filter_complex", "amovie=waiting.mp3:loop=0,asetpts=N/SR/TB",
 
-    "-c:a", "aac",
-    "-b:a", "128k",
+//    "-c:a", "aac",
+//    "-b:a", "128k",
 
     "-c:v", "libx264",
     "-preset", "ultrafast",
@@ -34,32 +41,39 @@ function init() {
 
     "-f", "flv", "rtmp://localhost:1935/local/waiting"
   ]);
-	ffmpeg.stdout.on('data', data => {
+	instance.stdout.on('data', data => {
   	console.log(`ffmpeg stdout: ${data}`);
 	});
-	ffmpeg.stderr.on('data', data => {
+	instance.stderr.on('data', data => {
+    if (skipOn.test(`${data}`)) return;
   	console.log(`ffmpeg stderr: ${data}`);
-    if (logLevel === killOn) {
-      ffmpeg.kill();
+    if (process.env.NODE_ENV === "production") {
+      instance.kill();
       setTimeout(function() {
         console.log(moment().toISOString(), 'restarting...');
         init();
       }, 1000);
     }
 	});
+}
+
+makeSundaySvg().then(buf => {
+  for (let i = 0; i < 30; i++) {
+    if (!instance || !instance.stdin || instance.killed) continue;
+    instance.stdin.write(buf);
+  }
+  return;
+});
+setInterval(() => {
   makeSundaySvg().then(buf => {
-    for (let i = 0; i < 30; i++)
-      ffmpeg.stdin.write(buf);
+    for (let i = 0; i < 30; i++) {
+      if (!instance || !instance.stdin || instance.killed) continue;
+      instance.stdin.write(buf);
+    }
     return;
   });
-	setInterval(() => {
-    makeSundaySvg().then(buf => {
-      for (let i = 0; i < 30; i++)
-        ffmpeg.stdin.write(buf)
-      return;
-    });
-	}, 30000);
-}
+}, 30000);
+
 
 function makeSundaySvg() {
   let info = nextSunday();
@@ -72,7 +86,7 @@ function nextSunday() {
   let live, next;
   if (now.day() === 0) {
     let showTime = moment(now).hour(11).startOf('hour');
-    let endTime = moment(showTime).hour(14);
+    let endTime = moment(showTime).hour(15);
     if (now < showTime) {
       live = false;
       next = showTime;

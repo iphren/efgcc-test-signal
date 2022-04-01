@@ -1,0 +1,108 @@
+
+> web-stream@1.0.0 start /home/ubuntu/web-stream
+> node index.js
+
+ffmpeg stderr: ffmpeg version 3.4.8-0ubuntu0.2 Copyright (c) 2000-2020 the FFmpeg developers
+  built with gcc 7 (Ubuntu 7.5.0-3ubuntu1~18.04)
+  configuration: --prefix=/usr --extra-version=0ubuntu0.2 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --enable-gpl --disable-stripping --enable-avresample --enable-avisynth --enable-gnutls --enable-ladspa --enable-libass --enable-libbluray --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libgme --enable-libgsm --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-libpulse --enable-librubberband --enable-librsvg --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libssh --enable-libtheora --enable-libtwolame --enable-libvorbis --enable-libvpx --enable-libwavpack --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzmq --enable-libzvbi --enable-omx --enable-openal --enable-opengl --enable-sdl2 --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-libopencv --enable-libx264 --enable-shared
+  libavutil      55. 78.100 / 55. 78.100
+  libavcodec     57.107.100 / 57.107.100
+  libavformat    57. 83.100 / 57. 83.100
+  libavdevice    57. 10.100 / 57. 10.100
+  libavfilter     6.107.100 /  6.107.100
+  libavresample   3.  7.  0 /  3.  7.  0
+  libswscale      4.  8.100 /  4.  8.100
+  libswresample   2.  9.100 /  2.  9.100
+  libpostproc    54.  7.100 / 54.  7.100
+
+ffmpeg stderr: [image2pipe @ 0x55ea00e96cc0] 
+ffmpeg stderr: max_analyze_duration 5000000 reached at 5000000 microseconds st:0
+
+ffmpeg stderr: Input #0, image2pipe, from 'pipe:':
+
+ffmpeg stderr:   Duration: 
+ffmpeg stderr: N/A
+ffmpeg stderr: , bitrate: 
+ffmpeg stderr: N/A
+ffmpeg stderr: 
+
+ffmpeg stderr:     Stream #0:0
+ffmpeg stderr: : Video: png, 1 reference frame, rgba(pc), 1280x720
+ffmpeg stderr: , 
+ffmpeg stderr: 1 fps, 
+ffmpeg stderr: 1 tbr, 
+ffmpeg stderr: 1 tbn, 
+ffmpeg stderr: 1 tbc
+ffmpeg stderr: 
+
+ffmpeg stderr: [mp3 @ 0x55ea00e9ba60] Skipping 0 bytes of junk at 11990.
+
+ffmpeg stderr: [mp3 @ 0x55ea00e9ba60] Estimating duration from bitrate, this may be inaccurate
+
+ffmpeg stderr: [Parsed_amovie_0 @ 0x55ea00e9b7e0] seek_point:0 format_name:(null) file_name:waiting.mp3 stream_index:-1
+
+ffmpeg stderr: Stream mapping:
+  asetpts (graph 0) -> Stream #0:0 (aac)
+  Stream #0:0 -> #0:1 (png (native) -> h264 (libx264))
+
+ffmpeg stderr: [mp3 @ 0x55ea00edfea0] Skipping 0 bytes of junk at 11990.
+
+ffmpeg stderr: [mp3 @ 0x55ea00edfea0] Estimating duration from bitrate, this may be inaccurate
+
+ffmpeg stderr: [Parsed_amovie_0 @ 0x55ea00edf920] seek_point:0 format_name:(null) file_name:waiting.mp3 stream_index:-1
+
+ffmpeg stderr: [format_out_0_0 @ 0x55ea00f7b200] auto-inserting filter 'auto_resampler_0' between the filter 'Parsed_asetpts_1' and the filter 'format_out_0_0'
+[Parsed_amovie_0 @ 0x55ea00edf920] 
+ffmpeg stderr: TB:0.000000 FRAME_RATE:nan SAMPLE_RATE:48000.000000
+[auto_resampler_0 @ 0x55ea00f8be20] ch:2 chl:stereo fmt:s16p r:48000Hz -> ch:2 chl:stereo fmt:fltp r:48000Hz
+
+ffmpeg stderr: frame=    0 fps=0.0 q=0.0 size=       0kB time=-577014:32:22.77 bitrate=  -0.0kbits/s speed=N/A    
+ffmpeg stderr: [Parsed_fps_0 @ 0x55ea01042480] fps=5/1
+[graph 1 input from stream 0:0 @ 0x55ea01043900] w:1280 h:720 pixfmt:rgba tb:1/1 fr:1/1 sar:0/1 sws_param:flags=2
+[auto_scaler_0 @ 0x55ea01046760] w:iw h:ih flags:'bicubic' interl:0
+[Parsed_format_1 @ 0x55ea01043060] auto-inserting filter 'auto_scaler_0' between the filter 'Parsed_fps_0' and the filter 'Parsed_format_1'
+[auto_scaler_0 @ 0x55ea01046760] w:1280 h:720 fmt:rgba sar:0/1 -> w:1280 h:720 fmt:yuv420p sar:0/1 flags:0x4
+
+ffmpeg stderr: [libx264 @ 0x55ea00ea6f40] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+
+ffmpeg stderr: [libx264 @ 0x55ea00ea6f40] profile Constrained Baseline, level 3.1
+
+ffmpeg stderr: [libx264 @ 0x55ea00ea6f40] 264 - core 152 r2854 e9a5903 - H.264/MPEG-4 AVC codec - Copyleft 2003-2017 - http://www.videolan.org/x264.html - options: cabac=0 ref=1 deblock=0:0:0 analyse=0:0 me=dia subme=0 psy=1 psy_rd=1.00:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=0 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=2 lookahead_threads=2 sliced_threads=1 slices=2 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=0 weightp=0 keyint=5 keyint_min=1 scenecut=0 intra_refresh=0 rc=crf mbtree=0 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=0
+
+ffmpeg stderr: Output #0, flv, to 'rtmp://localhost:1935/local/waiting':
+  Metadata:
+    encoder         : Lavf57.83.100
+    Stream #0:0: Audio: aac (LC) ([10][0][0][0] / 0x000A), 48000 Hz, stereo, fltp, delay 1024, 128 kb/s (default)
+    Metadata:
+      encoder         : Lavc57.107.100 aac
+ffmpeg stderr: 
+    Stream #0:1: Video: h264 (libx264), 1 reference frame ([7][0][0][0] / 0x0007), yuv420p, 1280x720, q=-1--1, 5 fps, 1k tbn, 5 tbc
+    Metadata:
+      encoder         : Lavc57.107.100 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: -1
+
+ffmpeg stderr: frame=    0 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    
+ffmpeg stderr: frame=    0 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    
+ffmpeg stderr: frame=    0 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    
+ffmpeg stderr: frame=    0 fps=0.0 q=0.0 size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    
+ffmpeg stderr: frame=    5 fps=1.6 q=9.0 size=       0kB time=00:00:00.80 bitrate=   4.6kbits/s speed=0.262x    
+ffmpeg stderr: frame=    5 fps=1.4 q=9.0 size=      98kB time=00:00:00.83 bitrate= 962.5kbits/s speed=0.234x    
+ffmpeg stderr: frame=   10 fps=2.5 q=9.0 size=     167kB time=00:00:01.80 bitrate= 758.5kbits/s speed=0.443x    
+ffmpeg stderr: frame=   10 fps=2.2 q=9.0 size=     178kB time=00:00:01.83 bitrate= 795.1kbits/s speed=0.402x    
+ffmpeg stderr: frame=   15 fps=3.0 q=9.0 size=     261kB time=00:00:02.80 bitrate= 764.4kbits/s speed=0.553x    
+ffmpeg stderr: frame=   15 fps=2.7 q=9.0 size=     264kB time=00:00:02.83 bitrate= 763.0kbits/s speed=0.51x    
+ffmpeg stderr: frame=   20 fps=3.3 q=9.0 size=     353kB time=00:00:03.80 bitrate= 761.6kbits/s speed=0.626x    
+ffmpeg stderr: frame=   20 fps=3.0 q=9.0 size=     358kB time=00:00:03.84 bitrate= 764.1kbits/s speed=0.584x    
+ffmpeg stderr: frame=   25 fps=3.5 q=9.0 size=     452kB time=00:00:04.84 bitrate= 765.2kbits/s speed=0.684x    
+ffmpeg stderr: frame=   25 fps=3.3 q=9.0 size=     452kB time=00:00:04.84 bitrate= 765.2kbits/s speed=0.638x    
+ffmpeg stderr: frame=   30 fps=3.7 q=9.0 size=     546kB time=00:00:05.82 bitrate= 767.9kbits/s speed=0.72x    
+ffmpeg stderr: frame=   30 fps=3.5 q=9.0 size=     546kB time=00:00:05.82 bitrate= 767.9kbits/s speed=0.677x    
+ffmpeg stderr: frame=   35 fps=3.8 q=9.0 size=     640kB time=00:00:06.82 bitrate= 767.8kbits/s speed=0.749x    
+ffmpeg stderr: frame=   35 fps=3.6 q=9.0 size=     640kB time=00:00:06.82 bitrate= 767.8kbits/s speed=0.71x    
+ffmpeg stderr: frame=   40 fps=4.0 q=9.0 size=     734kB time=00:00:07.83 bitrate= 767.8kbits/s speed=0.774x    
+ffmpeg stderr: frame=   40 fps=3.8 q=9.0 size=     734kB time=00:00:07.83 bitrate= 767.8kbits/s speed=0.737x    
+ffmpeg stderr: frame=   45 fps=4.0 q=9.0 size=     828kB time=00:00:08.83 bitrate= 767.8kbits/s speed=0.793x    
+ffmpeg stderr: frame=   45 fps=3.9 q=9.0 size=     828kB time=00:00:08.83 bitrate= 767.8kbits/s speed=0.759x    
+ffmpeg stderr: frame=   50 fps=4.1 q=9.0 size=     922kB time=00:00:09.83 bitrate= 767.8kbits/s speed=0.81x    
+ffmpeg stderr: frame=   50 fps=4.0 q=9.0 size=     922kB time=00:00:09.83 bitrate= 767.8kbits/s speed=0.777x    
